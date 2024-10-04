@@ -20,6 +20,15 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// Custom Routes
+app.MapControllerRoute(
+    name: "MoviesByReleaseDate",
+    pattern: "movies/released/{year}/{month}",
+    defaults: new {controller="Movies", action="ByReleaseDate"},
+    new { year = @"\d{4}", month = @"\d{2}"} // constraint: year 4 digits, month 2 digits
+);
+
+// Default Route to Home
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
