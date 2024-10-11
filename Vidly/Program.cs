@@ -66,4 +66,15 @@ https://bootswatch.com/
 
 Course Link:
 https://www.youtube.com/watch?v=j-JpI4QcQh4&list=PLOghUv2IDLKEVhfuIJQnl3HxeXwtRvmsr&index=20
-*/
+
+Database: Vidly
+Tables:
+    Customers
+    Movies
+ 
+
+Models:
+    Movie
+    Customer
+        MembershipType
+ */
