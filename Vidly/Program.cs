@@ -1,7 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using Vidly.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<VidlyContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
 var app = builder.Build();
 
@@ -59,4 +63,7 @@ https://localhost:7126/Movie/Random
 
 Bootstrap: 
 https://bootswatch.com/
+
+Course Link:
+https://www.youtube.com/watch?v=j-JpI4QcQh4&list=PLOghUv2IDLKEVhfuIJQnl3HxeXwtRvmsr&index=20
 */

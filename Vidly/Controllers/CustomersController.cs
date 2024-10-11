@@ -14,7 +14,7 @@ namespace Vidly.Controllers
         }
 
         // https://localhost:7126/Customers/Details/1
-        public IActionResult Details(string id) 
+        public IActionResult Details(int id) 
         {
             var customers = GetCustomers().SingleOrDefault(c => c.Id == id);
 
@@ -29,8 +29,8 @@ namespace Vidly.Controllers
         {
             return new List<Customer>
             {
-                new Customer { Id = "1", Name = "John Smith" },
-                new Customer { Id = "2", Name = "Mary Williams" }
+                new Customer { Id = 1, Name = "John Smith" },
+                new Customer { Id = 2, Name = "Mary Williams" }
             };
         }
     }
