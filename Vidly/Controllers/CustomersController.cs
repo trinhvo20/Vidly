@@ -1,14 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Vidly.Data;
 using Vidly.Models;
 
 namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
+        // Make connection the Vidly database through VidlyContext
+        private VidlyContext _context;
+
+        public CustomersController(VidlyContext context)
+        {
+            _context = context;
+        }
+
         // https://localhost:7126/Customers
         public IActionResult Index()
         {
-            var customers = GetCustomers();
+            //var customers = GetCustomers();
+            var customers = _context.Customers.ToList();
 
             return View(customers);
         }
@@ -16,7 +26,8 @@ namespace Vidly.Controllers
         // https://localhost:7126/Customers/Details/1
         public IActionResult Details(int id) 
         {
-            var customers = GetCustomers().SingleOrDefault(c => c.Id == id);
+            //var customers = GetCustomers().SingleOrDefault(c => c.Id == id);
+            var customers = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (customers == null) 
                 return NotFound();
@@ -24,7 +35,7 @@ namespace Vidly.Controllers
             return View(customers);
         }
 
-        // Methods
+        // Methods that used before we have database to getCustomer list
         private IEnumerable<Customer> GetCustomers()
         {
             return new List<Customer>
