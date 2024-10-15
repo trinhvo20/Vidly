@@ -44,12 +44,12 @@ namespace Vidly.Controllers
             // We use ViewModel so we can access to 2 models (Customer + MembershipType)
             var membershipTypes = _context.MembershipTypes.ToList();
 
-            var viewModel = new NewCustomerViewModel
+            var viewModel = new CustomerFormViewModel
             {
                 MembershipTypes = membershipTypes
             };
 
-            return View(viewModel);
+            return View("CustomerForm", viewModel);
         }
 
         // This action is called when we click 'Save' button to create a new customer and save it to DB
@@ -60,6 +60,22 @@ namespace Vidly.Controllers
             _context.SaveChanges();
 
             return RedirectToAction(actionName: "Index", controllerName: "Customers");
+        }
+
+
+        public IActionResult Edit(int id) {
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+
+            if (customer == null)
+                return NotFound();
+
+            var viewModel = new CustomerFormViewModel
+            {
+                Customer = customer,
+                MembershipTypes = _context.MembershipTypes.ToList()
+            };
+            
+            return View("CustomerForm", viewModel);
         }
 
         // Methods that used before we have database to getCustomer list
