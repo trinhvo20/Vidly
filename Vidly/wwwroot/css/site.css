@@ -20,3 +20,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* My own CSS */
+.field-validation-error {
+    color: red;
+}
+
+.input-validation-error {
+    border: 2px solid red !important;
+}
