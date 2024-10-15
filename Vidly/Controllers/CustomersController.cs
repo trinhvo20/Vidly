@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Vidly.Data;
 using Vidly.Models;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -39,7 +40,14 @@ namespace Vidly.Controllers
         // https://localhost:7126/Customers/New
         public IActionResult New()
         {
-            return View();
+            var membershipTypes = _context.MembershipTypes.ToList();
+
+            var viewModel = new NewCustomerViewModel
+            {
+                MembershipTypes = membershipTypes
+            };
+
+            return View(viewModel);
         }
 
         // Methods that used before we have database to getCustomer list
