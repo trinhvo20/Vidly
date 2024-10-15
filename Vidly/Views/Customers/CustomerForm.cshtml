@@ -1,13 +1,13 @@
 ﻿@model Vidly.ViewModels.CustomerFormViewModel
 
 @{
-    ViewBag.Title = "New";
+    ViewBag.Title = @Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!-- https://localhost:7126/Customers/New -->
 
-<h2>Customer</h2>
+<h2>@Model.Title</h2>
 
 <!-- Our Form -->
 @using (Html.BeginForm(actionName: "Save", controllerName: "Customers"))
@@ -15,6 +15,7 @@
     <div class="form-group mb-3">
         @Html.LabelFor(c => c.Customer.Name)
         @Html.TextBoxFor(c => c.Customer.Name, new { @class="form-control"})
+        @Html.ValidationMessageFor(m => m.Customer.Name)
     </div>
     <div class="form-group mb-3">
         @Html.LabelFor(c => c.Customer.Birthdate)

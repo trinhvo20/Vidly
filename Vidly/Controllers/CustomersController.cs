@@ -6,15 +6,10 @@ using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
-    public class CustomersController : Controller
+    public class CustomersController(VidlyContext context) : Controller
     {
         // Make connection the Vidly database through VidlyContext
-        private VidlyContext _context;
-
-        public CustomersController(VidlyContext context)
-        {
-            _context = context;
-        }
+        private VidlyContext _context = context;
 
         // https://localhost:7126/Customers
         public IActionResult Index()
@@ -69,6 +64,17 @@ namespace Vidly.Controllers
         [HttpPost]
         public IActionResult Save(Customer customer)
         {
+            if (!ModelState.IsValid)
+            {
+                // if form validation fails, return to CustomerForm (the same view) again
+                var viewModel = new CustomerFormViewModel
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+                return View("CustomerForm", viewModel);
+            }
+
             if (customer.Id == 0)
             {
                 // If this customer does not exist, create it
