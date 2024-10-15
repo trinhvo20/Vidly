@@ -38,6 +38,57 @@ namespace Vidly.Controllers
             return View(movies);
         }
 
+        // Acion to show a form to Create a new Movie
+        public IActionResult New()
+        {
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = _context.Genres.ToList(),
+            };
+            
+            return View("MovieForm", viewModel);
+        }
+
+        // Action to show a from to Edit an existing Movie
+        public IActionResult Edit(int id)
+        {
+            var movieInDB = _context.Movies.SingleOrDefault(m => m.Id == id);
+
+            if (movieInDB == null) 
+                return NotFound();
+
+            var viewModel = new MovieFormViewModel
+            {
+                Movie = movieInDB,
+                Genres = _context.Genres.ToList(),
+            };
+
+            return View("MovieForm", viewModel);
+        }
+
+        // This action is called when we click 'Save' button to create/edit a Movie and save it to DB
+        [HttpPost]
+        public IActionResult Save(Movie movie)
+        {
+            if (movie.Id == 0)
+            {
+                // If this movie does not exist, create it
+                _context.Movies.Add(movie);
+            } else
+            {
+                // If this movie exists, get it from DB and edit it
+                var movieInDB = _context.Movies.Single(m => m.Id == movie.Id);
+                movieInDB.Name = movie.Name;
+                movieInDB.ReleaseDate = movie.ReleaseDate;
+                movieInDB.GenreId = movie.GenreId;
+                movieInDB.NumberInStock = movie.NumberInStock;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction(actionName: "Index", "Movies");
+        }
+
         // https://localhost:7126/Movies/Random
         //public IActionResult Random()
         //{
@@ -68,11 +119,7 @@ namespace Vidly.Controllers
         //}
 
         //  BELOW THIS LINE IS PRACTCE CREATING ACTIONS =========================================================
-        // https://localhost:7126/Movies/Edit/1
-        public IActionResult Edit(int id)
-        {
-            return Content("id = " + id);
-        }
+
 
         // https://localhost:7126/Movies?pageIndex=2&sortBy=Date
         //public IActionResult Index(int? pageIndex, string sortBy)
@@ -92,5 +139,7 @@ namespace Vidly.Controllers
         {
             return Content(year + "/" + month);
         }
+
+
     }
 }

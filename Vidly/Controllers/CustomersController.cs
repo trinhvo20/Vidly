@@ -42,38 +42,13 @@ namespace Vidly.Controllers
         public IActionResult New()
         {
             // We use ViewModel so we can access to 2 models (Customer + MembershipType)
-            var membershipTypes = _context.MembershipTypes.ToList();
-
             var viewModel = new CustomerFormViewModel
             {
-                MembershipTypes = membershipTypes
+                MembershipTypes = _context.MembershipTypes.ToList()
             };
 
             return View("CustomerForm", viewModel);
         }
-
-        // This action is called when we click 'Save' button to create/edit a customer and save it to DB
-        [HttpPost]
-        public IActionResult Save(Customer customer)
-        {
-            if (customer.Id == 0) { 
-                // If this customer does not exist, create it
-                _context.Customers.Add(customer);
-            } 
-            else {
-                // If this customer exists, get the customer from DB and edit it
-                var customerInDB = _context.Customers.Single(c => c.Id == customer.Id);
-                customerInDB.Name = customer.Name;
-                customerInDB.Birthdate = customer.Birthdate;
-                customerInDB.MembershipTypeId = customer.MembershipTypeId;
-                customerInDB.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
-            }
-
-            _context.SaveChanges();
-
-            return RedirectToAction(actionName: "Index", controllerName: "Customers");
-        }
-
 
         public IActionResult Edit(int id) {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
@@ -88,6 +63,30 @@ namespace Vidly.Controllers
             };
             
             return View("CustomerForm", viewModel);
+        }
+
+        // This action is called when we click 'Save' button to create/edit a customer and save it to DB
+        [HttpPost]
+        public IActionResult Save(Customer customer)
+        {
+            if (customer.Id == 0)
+            {
+                // If this customer does not exist, create it
+                _context.Customers.Add(customer);
+            }
+            else
+            {
+                // If this customer exists, get the customer from DB and edit it
+                var customerInDB = _context.Customers.Single(c => c.Id == customer.Id);
+                customerInDB.Name = customer.Name;
+                customerInDB.Birthdate = customer.Birthdate;
+                customerInDB.MembershipTypeId = customer.MembershipTypeId;
+                customerInDB.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction(actionName: "Index", controllerName: "Customers");
         }
 
         // Methods that used before we have database to getCustomer list
