@@ -36,6 +36,12 @@ namespace Vidly.Controllers
             return View(customers);
         }
 
+        // https://localhost:7126/Customers/New
+        public IActionResult New()
+        {
+            return View();
+        }
+
         // Methods that used before we have database to getCustomer list
         private IEnumerable<Customer> GetCustomers()
         {
