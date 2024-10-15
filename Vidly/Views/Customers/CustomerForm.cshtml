@@ -7,10 +7,10 @@
 
 <!-- https://localhost:7126/Customers/New -->
 
-<h2>New Customer</h2>
+<h2>Customer</h2>
 
 <!-- Our Form -->
-@using (Html.BeginForm(actionName: "Create", controllerName: "Customers"))
+@using (Html.BeginForm(actionName: "Save", controllerName: "Customers"))
 {
     <div class="form-group mb-3">
         @Html.LabelFor(c => c.Customer.Name)
@@ -30,6 +30,9 @@
         </label>
     </div>
 
+    // Hidden field contains value that you want to pass in the form but not show it in the website.
+    @Html.HiddenFor(c => c.Customer.Id)
+    
     <!-- Button -->
     <button class="btn btn-primary" type="submit">Save</button>
 }

@@ -52,11 +52,23 @@ namespace Vidly.Controllers
             return View("CustomerForm", viewModel);
         }
 
-        // This action is called when we click 'Save' button to create a new customer and save it to DB
+        // This action is called when we click 'Save' button to create/edit a customer and save it to DB
         [HttpPost]
-        public IActionResult Create(Customer customer)
+        public IActionResult Save(Customer customer)
         {
-            _context.Customers.Add(customer);
+            if (customer.Id == 0) { 
+                // If this customer does not exist, create it
+                _context.Customers.Add(customer);
+            } 
+            else {
+                // If this customer exists, get the customer from DB and edit it
+                var customerInDB = _context.Customers.Single(c => c.Id == customer.Id);
+                customerInDB.Name = customer.Name;
+                customerInDB.Birthdate = customer.Birthdate;
+                customerInDB.MembershipTypeId = customer.MembershipTypeId;
+                customerInDB.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
+            }
+
             _context.SaveChanges();
 
             return RedirectToAction(actionName: "Index", controllerName: "Customers");
