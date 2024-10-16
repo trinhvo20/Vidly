@@ -38,6 +38,7 @@ namespace Vidly.Controllers
         {
             var viewModel = new MovieFormViewModel
             {
+                Movie = new Movie(),
                 Genres = _context.Genres.ToList(),
             };
             
@@ -63,11 +64,23 @@ namespace Vidly.Controllers
 
         // This action is called when we click 'Save' button to create/edit a Movie and save it to DB
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Save(Movie movie)
         {
+            if (!ModelState.IsValid)
+            {
+                // if form validation fails, return to MovieForm (the same view) again
+                var viewModel = new MovieFormViewModel()
+                {
+                    Movie = movie,
+                    Genres = _context.Genres.ToList()
+                };
+                return View("MovieForm", viewModel);
+            }
             if (movie.Id == 0)
             {
                 // If this movie does not exist, create it
+                movie.DateAdded = DateTime.Now;
                 _context.Movies.Add(movie);
             } else
             {
