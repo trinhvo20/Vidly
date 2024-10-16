@@ -37,7 +37,8 @@
 
     // Hidden field contains value that you want to pass in the form but not show it in the website.
     @Html.HiddenFor(c => c.Customer.Id)
-    
+    @Html.AntiForgeryToken()
+
     <!-- Button -->
     <button class="btn btn-primary" type="submit">Save</button>
 }

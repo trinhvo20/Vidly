@@ -63,6 +63,7 @@ namespace Vidly.Controllers
 
         // This action is called when we click 'Save' button to create/edit a customer and save it to DB
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Save(Customer customer)
         {
             if (!ModelState.IsValid)
