@@ -6,10 +6,12 @@ namespace Vidly.Models
     {
         public int Id { get; set; }
 
+        [Required]
         [StringLength(255)]
-        public required string Name { get; set; }
- 
-        public required Genre Genre { get; set; }
+        public string Name { get; set; }
+        
+        [Required]
+        public Genre Genre { get; set; }
 
         [Display(Name = "Genre")]
         public byte GenreId { get; set; }

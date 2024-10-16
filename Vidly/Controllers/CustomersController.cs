@@ -39,6 +39,7 @@ namespace Vidly.Controllers
             // We use ViewModel so we can access to 2 models (Customer + MembershipType)
             var viewModel = new CustomerFormViewModel
             {
+                Customer = new Customer(),
                 MembershipTypes = _context.MembershipTypes.ToList()
             };
 
