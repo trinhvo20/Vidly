@@ -1,11 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Vidly.Data;
+using Vidly.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add DB services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<VidlyContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+
+// Add AutoMapper to the service container
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 
