@@ -14,10 +14,7 @@ namespace Vidly.Controllers
         // https://localhost:7126/Customers
         public IActionResult Index()
         {
-            //var customers = GetCustomers();
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
-
-            return View(customers);
+            return View();
         }
 
         // https://localhost:7126/Customers/Details/1
