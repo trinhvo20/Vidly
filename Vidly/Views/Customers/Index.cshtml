@@ -46,6 +46,10 @@ else
 {
     <script>
         $(document).ready(function() {
+            // Display customer table as a Functional table with DataTables library
+            $("#customers-table").DataTable();
+
+            // Hanlde Delete button
             $('#customers-table').on("click", ".js-delete", function() {
                 var button = $(this);
 
