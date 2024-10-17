@@ -33,7 +33,7 @@ namespace Vidly.Controllers
             return View(movies);
         }
 
-        // Acion to show a form to Create a new Movie
+        // Action to show a form to Create a new Movie
         public IActionResult New()
         {
             var viewModel = new MovieFormViewModel

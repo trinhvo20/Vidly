@@ -10,6 +10,9 @@ namespace Vidly.Mapping
         {
             CreateMap<Customer, CustomerDto>();
             CreateMap<CustomerDto, Customer>().ForMember(dest => dest.Id, opt => opt.Ignore());
+       
+            CreateMap<Movie, MovieDto>();
+            CreateMap<MovieDto, Movie>().ForMember(dest => dest.Id, opt => opt.Ignore());
         }
     }
 }
