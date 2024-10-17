@@ -27,8 +27,9 @@
 {
     <script>
         $(document).ready(function() {
+            
             // Display customer table as a Functional table with DataTables library
-            $("#customers-table").DataTable({
+            var customerDataTable = $("#customers-table").DataTable({
                 // Send JSON data (instead of MARKUP data) to DataTables to display
                 ajax: {
                     url: "/api/customers/",
@@ -62,7 +63,7 @@
                         url: "/api/customers/" + button.attr("data-customer-id"),
                         type: "DELETE",
                         success: function () {
-                            button.parents("tr").remove();
+                            customerDataTable.row(button.parents("tr")).remove().draw();
                         }
                     })
                 }
