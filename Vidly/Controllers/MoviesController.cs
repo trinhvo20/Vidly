@@ -16,10 +16,7 @@ namespace Vidly.Controllers
         // https://localhost:7126/Movies
         public IActionResult Index()
         {
-            //var movies = GetMovies();
-            var movies = _context.Movies.Include(m => m.Genre).ToList();
-
-            return View(movies);
+            return View();
         }
 
         // https://localhost:7126/Movies/Details/1
