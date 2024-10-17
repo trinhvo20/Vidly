@@ -56,7 +56,7 @@ namespace Vidly.Controllers.Api
         }
 
         // PUT /api/customers/1
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult UpdateCustomer(int id, CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
@@ -75,7 +75,7 @@ namespace Vidly.Controllers.Api
         }
 
         // DELETE /api/customers/1
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteCustomer(int id)
         {
             var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);

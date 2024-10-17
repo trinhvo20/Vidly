@@ -24,7 +24,7 @@ namespace Vidly.Controllers.Api
             return Ok(movieDtos);
         }
 
-        // GET /api/movie/{id}
+        // GET /api/movies/{id}
         [HttpGet("{id}")]
         public IActionResult GetMovie(int id)
         {
@@ -37,7 +37,7 @@ namespace Vidly.Controllers.Api
             return Ok(movieDto);
         }
 
-        // POST /api/movie
+        // POST /api/movies
         [HttpPost]
         public IActionResult CreateMovie(MovieDto movieDto)
         {
@@ -56,7 +56,7 @@ namespace Vidly.Controllers.Api
         }
 
         // PUT /api/movies/1
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult UpdateMovie(int id, MovieDto movieDto)
         {
             if (!ModelState.IsValid)
@@ -75,7 +75,7 @@ namespace Vidly.Controllers.Api
         }
 
         // DELETE /api/movies/1
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteMovie(int id)
         {
             var movieInDb = _context.Movies.SingleOrDefault(c => c.Id == id);
