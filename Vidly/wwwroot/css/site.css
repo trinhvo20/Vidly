@@ -29,3 +29,29 @@ body {
 .input-validation-error {
     border: 2px solid red !important;
 }
+
+
+/* Typeahead suggestion box */
+.tt-menu {
+    width: 100%; /* Make the dropdown as wide as the input */
+    background-color: #fff; /* Solid white background */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 4px; /* Rounded corners (optional) */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-height: 200px; /* Limit height */
+    overflow-y: auto; /* Enable scroll if content exceeds max height */
+    z-index: 1050; /* Ensure it appears on top of other elements */
+}
+
+    .tt-container {
+        position: relative;
+    }
+
+    .tt-suggestion {
+        padding: 10px; /* Add some padding for better spacing */
+        cursor: pointer;
+    }
+
+    .tt-suggestion:hover {
+        background-color: #f0f0f0; /* Slight gray hover effect */
+    }
